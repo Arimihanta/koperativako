@@ -1,0 +1,158 @@
+.App {
+  text-align: center;
+  overflow: hidden;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.choix-destination {
+  margin-top: 8px ;
+  margin-bottom: 8px ;
+  background-color: #f0f0f0 ;
+}
+.b-valid-search{
+  margin-top: 8px ;
+  margin-bottom: 8px ;
+  background-color: #f0f0f0 ;
+}
+.without-margin{
+  margin:0px !important;
+}
+.form-margin{
+  padding-top:0px !important;
+  padding-bottom:10px !important;
+}
+.profile-name{
+  background-color: transparent ;
+  color:#ffffff ;
+}
+.d-title{
+  background: #975B33 ;
+  color:#ffffff ;
+}
+
+.ul-nom{
+  list-style: none;
+  width:100% ;
+  height: 32px;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.ul-nom li{
+  float:left ;
+}
+.menu-edit-delete{
+  float:right !important ;
+}
+
+.link-name{
+  background-color: transparent !important;
+  color:red ;
+}
+
+.container-reservation{
+  background:#FFFFFF;
+  height:95%;
+  border-radius:5px 5px 5px 5px ;
+  border : 1px solid rgba(200, 200, 200, 0.925); ;
+}
+
+.conteneur-place{
+  width:302px !important ;
+  background: #FFFFFF;
+  margin: auto;
+  border : 1px solid rgba(200, 200, 200, 0.925);
+}
+.container-column-reservation{
+  border-right: 1px solid rgba(200, 200, 200, 0.925) !important;
+  background: #FFFFFF !important;
+}
+.conteneur-place-devant, .conteneur-place-der{
+  list-style: none;
+  padding: 2px 2px 5px 2px;
+  height: 70px;
+  margin: 0px;
+}
+.conteneur-place-devant li, .conteneur-place-der li{
+  float: left;
+  width: 70px;
+  height: 100%;
+  border : 1px solid #FFFFFF ;
+  margin: 2px;
+}
+
+.place-devant{
+  background: #FFFFFF;
+  width: 107px !important;
+  height: 100%;
+}
+.form-select-place, .form-select-voiture{
+  text-align: left;
+}
+.main-conteneur-place, .main-conteneur-liste-voiture, .main-conteneur-historiques-voyages{
+  max-width :1000px !important ;
+  max-height: 80%;
+  margin:auto;
+}
+.l-title{
+  background: transparent !important;
+  font-size: 24px;
+  color:#975B33 ;
+}
+.form-select-place{
+  max-height: 80% !important;
+  overflow-y: auto;
+}
+.header-table-liste-voiture{
+  background: #0158bb !important;
+}
+
+.invisible-scroll::-webkit-scrollbar {
+  width: 0px;
+}
+ 
+.invisible-scroll::-webkit-scrollbar-thumb {
+  background: #adadaf; 
+}
+
+.invisible-scroll::-webkit-scrollbar-track {
+  
+  background: #f2f3f7;
+}
+.entete-table{
+  background : rgba(200, 200, 200, 0.966) ;
+  color:rgba(26, 26, 26, 0.432) !important;
+}
