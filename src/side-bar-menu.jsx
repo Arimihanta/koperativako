@@ -22,6 +22,7 @@ import faker from 'faker'
 import './App.css'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ReserverPlace from './reserver-place.jsx' ;
+import ProgrammesVoyages from './programmes-voyages.jsx'
 import HistoriquesVoyages from './historiques-voyages'
 import ListeVoiture from './liste-voiture.jsx' ;
 
@@ -32,7 +33,7 @@ import ListeVoiture from './liste-voiture.jsx' ;
 const getWidth = () => {
   const isSSR = typeof window === 'undefined'
 
-  return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
+  return isSSR ? 999 : window.innerWidth
 }
 
 /* eslint-disable react/no-multi-comp */
@@ -52,6 +53,7 @@ const getWidth = () => {
    value: '',
    menu:{
       home : true,
+      programmes_voyages: false,
       historique_voyage:false,
       liste_voiture : false
     } 
@@ -122,7 +124,7 @@ class DesktopContainer extends Component {
     const { isLoading, value, results } = this.state
 
     return (
-      <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
+      <Responsive getWidth={getWidth} minWidth={1000}>
         <Visibility
           once={false}
         >
@@ -146,8 +148,8 @@ class DesktopContainer extends Component {
                     Reservation place
                   </Menu.Item>
                 </Link>
-                <Link to="/programmes-voiture">
-                  <Menu.Item id="programmes_voitures" onClick={this.handleSelectMenu.bind(this)} active={this.state.menu.historique_voyage} as='a' style={{marginBottom:0, height: '100%'}}>
+                <Link to="/programmes-voyages">
+                  <Menu.Item id="programmes_voyages" onClick={this.handleSelectMenu.bind(this)} active={this.state.menu.programmes_voyages} as='a' style={{marginBottom:0, height: '100%'}}>
                     Programmes des voitures
                   </Menu.Item>
                 </Link>
@@ -231,7 +233,7 @@ class MobileContainer extends Component {
       <Responsive
         as={Sidebar.Pushable}
         getWidth={getWidth}
-        maxWidth={Responsive.onlyMobile.maxWidth}
+        maxWidth={999}
       >
         <Sidebar
           as={Menu}
@@ -345,6 +347,7 @@ class SideBarMenu extends React.Component{
       <Router>
         <ResponsiveContainer>
           <Route exact path="/" component={ReserverPlace} />
+          <Route path='/programmes-voyages' component={ProgrammesVoyages}></Route>
           <Route path='/historiques-voyages' component={HistoriquesVoyages}></Route>
           <Route path="/liste-voiture" component={ListeVoiture} />
 

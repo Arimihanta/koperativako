@@ -80,16 +80,16 @@ class ListePassager extends Component{
             <ModalComponent.Content image scrolling style={{padding:0,}} className='invisible-scroll'>
               <ModalComponent.Description style={{padding:0, margin : 0}}>
                 <div style={{padding:0, margin : 0}}>
-                  <Table celled sortable size='small' inverted>
+                  <Table sortable size='small'>
                     <Table.Header style={{height:'30px !important', fontWeight:'200 !important', fontSize:'11px' , background:'blue'}}>
-                      <Table.Row style={{height:'30px !important', padding:'0px !important',background:'blue' }}>
+                      <Table.Row>
                         <Table.HeaderCell>Place</Table.HeaderCell>
                         <Table.HeaderCell>Nom du voyageur</Table.HeaderCell>
                         <Table.HeaderCell>Telephone</Table.HeaderCell>
                         <Table.HeaderCell>Carte d'identité Nationale</Table.HeaderCell>
                       </Table.Row>
                     </Table.Header>
-                    <Table.Body style={{maxHeight:'300px !important', overflow:'auto', fontSize:'11px'}}>
+                    <Table.Body style={{fontSize:'11px'}} className='body-table'>
                       {_.map(this.state.reservation_par_date, ({ id,voiture,voyageur,lieu_depart,lieu_destination,date,place}) => (
                         <Table.Row>
                           <Table.Cell>{place}</Table.Cell>
@@ -139,7 +139,7 @@ export default class HistoriquesVoyages extends Component{
 
   render(){
     return (
-      <div className="main-conteneur-historiques-voyages"> 
+      <div className="main-conteneur"> 
         <Table celled selectable  sortable inverted style={{ margin:'auto'}} 
           >
           <Table.Header style={{height:'30px !important', fontWeight:'200 !important', fontSize:'14px'}} className='entete-table'>
@@ -161,7 +161,7 @@ export default class HistoriquesVoyages extends Component{
           <Table.Body>
             {_.map(this.state.historiques_voyages, ({ numero_voiture,lieu_depart,lieu_destination,date }) => (
               <Table.Row>
-                <Table.Cell>{date}</Table.Cell>
+                <Table.Cell>{Conversion.dateFrLettre(date)}</Table.Cell>
                 <Table.Cell >{numero_voiture}</Table.Cell>
                 <Table.Cell >{lieu_depart}</Table.Cell>
                 <Table.Cell >{lieu_destination}</Table.Cell>

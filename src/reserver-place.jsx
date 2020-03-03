@@ -24,18 +24,6 @@ import {Conversion,Dictionnaire} from './lib/oark-lib.js'
 import _ from 'lodash'
 
 
-const villesOptions = [
-  { key: 'Ambatondrazaka', text: 'Ambatondrazaka', value: 'Ambatondrazaka' },
-  { key: 'Antananarivo', text: 'Antananarivo', value: 'Antananarivo' },
-  { key: 'Moramanga', text: 'Moramanga', value: 'Moramanga' },
-  { key: 'Toamasina', text: 'Toamasina', value: 'Toamasina' },
-  { key: 'Fianarantsoa', text: 'Fianarantsoa', value: 'Fianarantsoa' },
-  { key: 'Farafangana', text: 'Farafangana', value: 'Farafangana' },
-  { key: 'Mahajanga', text: 'Mahajanga', value: 'Mahajanga' },
-  { key: 'Antsiranana', text: 'Antsiranana', value: 'Antsiranana' },
-  { key: 'Fandriana', text: 'Fandriana', value: 'Fandriana' },
-] ;
-
 class ReserverPlace extends React.Component{
   constructor(props){
     super(props) ;
@@ -78,7 +66,8 @@ class ReserverPlace extends React.Component{
     modalSaisieNomOpen :false,
     personne_info:{},
     modalMessageErreur:false,
-    closeOnDimmerClick :false
+    closeOnDimmerClick :false,
+    programmes_voyages:[]
   }
 
 
@@ -87,7 +76,6 @@ class ReserverPlace extends React.Component{
     let name=event.target.name
     let value=event.target.value
     let selectedPlace=this.state.place
-    let lastPlace=this.state.lastPlace
     if(selectedPlace[name]==true){
       let reservation=this.state.reservation_par_date.filter(reservation=>reservation.place==parseInt(value))[0]
       console.log('data CIN to delete : '+reservation.voyageur.cin)
@@ -348,6 +336,7 @@ class ReserverPlace extends React.Component{
 
   componentDidMount(){
     this.getReservations()
+    this.getDataProgrammesVoyages()
   }
   getReservations(){
     let url="http://localhost:9096/records/reservation"
@@ -515,12 +504,37 @@ class ReserverPlace extends React.Component{
     )
   }
 
+  //
+  // programmes des voyages
+  //
+  getDataProgrammesVoyages(){
+    let url="http://localhost:9098/records/programme_voyage/"
+    fetch(url,{
+    method:'GET',
+    headers:{
+        "content-type":"application/json"
+    }
+    }).then(async(response)=>{
+        let data=await response.json()
+
+        this.setState({programmes_voyages:data})
+    })
+  }
+  getVoitureDansProgrammes(){
+    this.getDataProgrammesVoyages()
+    let val=[]
+    _.map(this.state.programmes_voyages, ({ date_voyage, numero_voiture,lieu_depart, lieu_destination}) => (
+      val.push({ key: Conversion.dateToFr(date_voyage), text: Conversion.dateToFr(date_voyage), value: Conversion.dateToFr(date_voyage) })
+    ))
+    return val
+  }
+
   render(){
     let reservation_par_date=this.state.reservation_par_date
     let all_reservations=this.state.all_reservations
     return(
       <Router>
-        <div className="main-conteneur-place">
+        <div className="main-conteneur">
           <Grid
             container
             columns={3}
@@ -537,7 +551,20 @@ class ReserverPlace extends React.Component{
                 <Form>
                   <Form.Field>
                     <label>Numero voiture</label>
-                    <Input name='numero_voiture' onChange={this.handleChange} placeholder='Numero voiture' value={this.state.numero_voiture}/>
+                    <Dropdown
+                      button
+                      className='icon choix-destination'
+                      placeholder='Numero voiture'
+                      fluid
+                      options={this.getVoitureDansProgrammes()}
+                      search
+                      labeled
+                      icon='map marker alternate'
+                      style={{ marginBottom: '0vh' }}
+                      circular
+                      name='numero_voiture'
+                      onChange={this.handleChange}
+                    />
                   </Form.Field>
                   <Form.Field>
                     <label>De</label>
@@ -546,7 +573,7 @@ class ReserverPlace extends React.Component{
                       className='icon choix-destination'
                       placeholder='Départ'
                       fluid
-                      options={villesOptions}
+                      options={Dictionnaire.villes}
                       search
                       labeled
                       icon='map marker alternate'
@@ -563,7 +590,7 @@ class ReserverPlace extends React.Component{
                       className='icon choix-destination'
                       placeholder='Destination'
                       fluid
-                      options={villesOptions}
+                      options={Dictionnaire.villes}
                       search
                       labeled
                       icon='map marker alternate'

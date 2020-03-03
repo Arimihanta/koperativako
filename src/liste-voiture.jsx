@@ -194,7 +194,7 @@ class ListeVoiture extends React.Component{
   render(){
     const { column,  direction, listVehicule} = this.state
     return (
-      <div className="main-conteneur-liste-voiture">
+      <div className="main-conteneur">
         <Table celled selectable  sortable inverted style={{ margin:'auto'}} 
           >
           <Table.Header style={{height:'30px !important', fontWeight:'200 !important', fontSize:'14px'}} className='entete-table'>
